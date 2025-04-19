@@ -491,6 +491,7 @@ func main() {
 		fmt.Println()
 		settingCmd.Usage()
 	}
+<<<<<<< HEAD
 	dbPath := "/Users/danilamanakov/GolandProjects/3x-ui/db/x-ui.db"
 	awsAccessKey := "admin"
 	awsSecretKey := "admin123"
@@ -501,5 +502,10 @@ func main() {
 	err := service.BackupDBToS3(dbPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSecretKey)
 	if err != nil {
 		fmt.Printf("Ошибка: %v\n", err)
+=======
+	err := service.BackupDB("/home/trd12/GolandProjects/3x-ui/db/x-ui.db", "/home/trd12/GolandProjects/3x-ui/backupplace\n")
+	if err != nil {
+		fmt.Println("Ошибка создания резервной копии:", err)
+>>>>>>> 2305d347b6735322e5e3b1f438736b11f74e58ba
 	}
 }

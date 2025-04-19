@@ -5,14 +5,18 @@ import (
 	"embed"
 	"errors"
 	"fmt"
+<<<<<<< HEAD
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+=======
+>>>>>>> 2305d347b6735322e5e3b1f438736b11f74e58ba
 	"io"
 	"net"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -1865,19 +1869,38 @@ func (t *Tgbot) editMessageTgBot(chatId int64, messageID int, text string, inlin
 		logger.Warning(err)
 	}
 }
+<<<<<<< HEAD
 
 func BackupDBToS3(dbPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSecretKey string) error {
 
+=======
+func BackupDB(dbPath, backupDir string) error {
+>>>>>>> 2305d347b6735322e5e3b1f438736b11f74e58ba
 	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
 		return fmt.Errorf("файл базы данных не найден: %s", dbPath)
 	}
 
+<<<<<<< HEAD
+=======
+	if _, err := os.Stat(backupDir); os.IsNotExist(err) {
+		err = os.MkdirAll(backupDir, os.ModePerm)
+		if err != nil {
+			return fmt.Errorf("не удалось создать папку для бэкапов: %v", err)
+		}
+	}
+
+	timestamp := time.Now().Format("20060102_150405")
+	backupFileName := fmt.Sprintf("backup_%s.db", timestamp)
+	backupFilePath := filepath.Join(backupDir, backupFileName)
+
+>>>>>>> 2305d347b6735322e5e3b1f438736b11f74e58ba
 	sourceFile, err := os.Open(dbPath)
 	if err != nil {
 		return fmt.Errorf("не удалось открыть файл базы данных: %v", err)
 	}
 	defer sourceFile.Close()
 
+<<<<<<< HEAD
 	var buffer bytes.Buffer
 	_, err = io.Copy(&buffer, sourceFile)
 	if err != nil {
@@ -1911,5 +1934,25 @@ func BackupDBToS3(dbPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSe
 	}
 
 	fmt.Printf("Резервная копия базы данных успешно сохранена в S3: %s\n", backupFileName)
+=======
+	destFile, err := os.Create(backupFilePath)
+	if err != nil {
+		return fmt.Errorf("не удалось создать файл резервной копии: %v", err)
+	}
+	defer destFile.Close()
+
+	bytesCopied, err := io.Copy(destFile, sourceFile)
+	if err != nil {
+		return fmt.Errorf("не удалось копировать данные: %v", err)
+	}
+
+	fmt.Printf("Скопировано %d байт\n", bytesCopied)
+
+	if err := destFile.Sync(); err != nil {
+		return fmt.Errorf("не удалось сохранить данные на диск: %v", err)
+	}
+
+	fmt.Printf("Резервная копия базы данных успешно создана: %s\n", backupFilePath)
+>>>>>>> 2305d347b6735322e5e3b1f438736b11f74e58ba
 	return nil
 }

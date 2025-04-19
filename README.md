@@ -581,6 +581,31 @@ XUI_BIN_FOLDER="bin" XUI_DB_FOLDER="/etc/x-ui" go build main.go
   <img alt="3x-ui" src="./media/7.png">
 </picture>
 
+#### BackUpToS3
+```sh
+docker run -d -p 9000:9000 -p 9001:9001 \
+  --name minio \
+  -e "MINIO_ROOT_USER=admin" \
+  -e "MINIO_ROOT_PASSWORD=admin123" \
+  quay.io/minio/minio server /data --console-address ":9001"
+```
+Создайте bucket и переименуйте нужную переменную здесь
+```sh
+func TestBackupDBToS3(t *testing.T) {
+	testDBPath := "/Users/danilamanakov/GolandProjects/3x-ui/db/x-ui.db"
+	awsAccessKey := "admin"
+	awsSecretKey := "admin123"
+	awsRegion := "fsn1"
+	s3Endpoint := "http://localhost:9000"
+	bucketName := "my-backup-bucket"
+
+	err := BackupDBToS3(testDBPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSecretKey)
+	if err != nil {
+		t.Errorf("Ошибка выполнения BackupDBToS3: %v", err)
+	}
+}
+```
+
 ## A Special Thanks to
 
 - [alireza0](https://github.com/alireza0/)
