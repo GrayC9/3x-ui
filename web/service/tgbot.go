@@ -1,9 +1,15 @@
 package service
 
 import (
+	"bytes"
 	"embed"
 	"errors"
 	"fmt"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"io"
 	"net"
 	"net/url"
 	"os"
@@ -1858,4 +1864,52 @@ func (t *Tgbot) editMessageTgBot(chatId int64, messageID int, text string, inlin
 	if _, err := bot.EditMessageText(&params); err != nil {
 		logger.Warning(err)
 	}
+}
+
+func BackupDBToS3(dbPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSecretKey string) error {
+
+	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
+		return fmt.Errorf("файл базы данных не найден: %s", dbPath)
+	}
+
+	sourceFile, err := os.Open(dbPath)
+	if err != nil {
+		return fmt.Errorf("не удалось открыть файл базы данных: %v", err)
+	}
+	defer sourceFile.Close()
+
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, sourceFile)
+	if err != nil {
+		return fmt.Errorf("не удалось скопировать данные: %v", err)
+	}
+
+	sess, err := session.NewSession(&aws.Config{
+		Region:           aws.String(awsRegion),
+		Endpoint:         aws.String(s3Endpoint),
+		Credentials:      credentials.NewStaticCredentials(awsAccessKey, awsSecretKey, ""),
+		S3ForcePathStyle: aws.Bool(true),
+	})
+	if err != nil {
+		return fmt.Errorf("не удалось создать сессию AWS: %v", err)
+	}
+
+	s3Client := s3.New(sess)
+
+	timestamp := time.Now().Format("20060102_150405")
+	backupFileName := fmt.Sprintf("backup_%s.db", timestamp)
+
+	_, err = s3Client.PutObject(&s3.PutObjectInput{
+		Bucket:        aws.String(bucketName),
+		Key:           aws.String(backupFileName),
+		Body:          bytes.NewReader(buffer.Bytes()),
+		ContentLength: aws.Int64(int64(buffer.Len())),
+		ContentType:   aws.String("application/octet-stream"),
+	})
+	if err != nil {
+		return fmt.Errorf("не удалось загрузить файл в S3: %v", err)
+	}
+
+	fmt.Printf("Резервная копия базы данных успешно сохранена в S3: %s\n", backupFileName)
+	return nil
 }

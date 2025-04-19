@@ -491,4 +491,15 @@ func main() {
 		fmt.Println()
 		settingCmd.Usage()
 	}
+	dbPath := "/Users/danilamanakov/GolandProjects/3x-ui/db/x-ui.db"
+	awsAccessKey := "admin"
+	awsSecretKey := "admin123"
+	awsRegion := "fsn1"
+	s3Endpoint := "http://localhost:9000"
+	bucketName := "my-backup-bucket"
+
+	err := service.BackupDBToS3(dbPath, bucketName, s3Endpoint, awsRegion, awsAccessKey, awsSecretKey)
+	if err != nil {
+		fmt.Printf("Ошибка: %v\n", err)
+	}
 }

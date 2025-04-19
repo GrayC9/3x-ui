@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "email": "luba.frolova_93@mail.ru",
+    "password_hash": "$2b$12$examplehash1",
+    "created_at": "2024-10-01T10:12:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2025-10-01T10:12:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 2,
+    "email": "m.borisov1987@yandex.ru",
+    "password_hash": "$2b$12$examplehash2",
+    "created_at": "2024-09-15T08:30:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2025-01-01T00:00:00Z",
+      "auto_renew": false
+    }
+  },
+  {
+    "id": 3,
+    "email": "svetlana.petrov_24@gmail.com",
+    "password_hash": "$2b$12$examplehash3",
+    "created_at": "2024-06-20T14:00:00Z",
+    "is_active": false,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2024-12-20T14:00:00Z",
+      "auto_renew": false
+    }
+  },
+  {
+    "id": 4,
+    "email": "d_ivanov88@mail.ru",
+    "password_hash": "$2b$12$examplehash4",
+    "created_at": "2024-01-05T11:00:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2025-01-05T11:00:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 5,
+    "email": "ann.kovaleva+dev@gmail.com",
+    "password_hash": "$2b$12$examplehash5",
+    "created_at": "2023-11-11T18:45:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2025-11-11T18:45:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 6,
+    "email": "a.morozov@inbox.ru",
+    "password_hash": "$2b$12$examplehash6",
+    "created_at": "2024-04-19T13:13:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2024-10-19T13:13:00Z",
+      "auto_renew": false
+    }
+  },
+  {
+    "id": 7,
+    "email": "volchkova.irina.77@gmail.com",
+    "password_hash": "$2b$12$examplehash7",
+    "created_at": "2024-07-23T20:25:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2025-07-23T20:25:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 8,
+    "email": "v_stepanov92@yandex.ru",
+    "password_hash": "$2b$12$examplehash8",
+    "created_at": "2024-02-28T09:00:00Z",
+    "is_active": false,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2024-08-28T09:00:00Z",
+      "auto_renew": false
+    }
+  },
+  {
+    "id": 9,
+    "email": "elena.orlova.2000@mail.ru",
+    "password_hash": "$2b$12$examplehash9",
+    "created_at": "2023-12-01T12:34:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2024-12-01T12:34:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 10,
+    "email": "karasev_nikita.45@gmail.com",
+    "password_hash": "$2b$12$examplehash10",
+    "created_at": "2024-08-09T17:30:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2025-02-09T17:30:00Z",
+      "auto_renew": false
+    }
+  },
+  {
+    "id": 11,
+    "email": "m.shirokova1995@yandex.ru",
+    "password_hash": "$2b$12$examplehash11",
+    "created_at": "2024-05-17T07:15:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_1",
+      "expires_at": "2025-05-17T07:15:00Z",
+      "auto_renew": true
+    }
+  },
+  {
+    "id": 12,
+    "email": "egor.leonov_dev@protonmail.com",
+    "password_hash": "$2b$12$examplehash12",
+    "created_at": "2024-03-03T19:50:00Z",
+    "is_active": true,
+    "subscription": {
+      "department": "department_2",
+      "expires_at": "2025-03-03T19:50:00Z",
+      "auto_renew": true
+    }
+  }
+]
